@@ -1,0 +1,20 @@
+{
+  "name": "automation-sample",
+  "version": "1.0.0",
+  "description": "Automated task runner using node-cron and axios",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "automation",
+    "cron",
+    "scheduler"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "node-cron": "^3.0.3"
+  }
+}
