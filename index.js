@@ -32,6 +32,13 @@ const fetchAndProcess = async () => {
     const res = await axios.get('https://jsonplaceholder.typicode.com/posts', { timeout: 10000 })
     const data = Array.isArray(res.data) ? res.data : []
     const cleaned = data.map(p => ({ id: p.id, title: String(p.title || '').trim(), wordCount: String(p.body || '').split(/\s+/).filter(Boolean).length }))
+    const wId = 4, wTitle = 42, wWords = 7
+    const line = (id, title, words) => `| ${String(id).padStart(wId)} | ${String(title).slice(0, wTitle).padEnd(wTitle)} | ${String(words).padStart(wWords)} |`
+    const header = `| ${'ID'.padStart(wId)} | ${'Title'.padEnd(wTitle)} | ${'Words'.padStart(wWords)} |`
+    const sep = `+-${'-'.repeat(wId)}-+-${'-'.repeat(wTitle)}-+-${'-'.repeat(wWords)}-+`
+    const view = cleaned.slice(0, 5)
+    const table = [sep, header, sep, ...view.map(r => line(r.id, r.title, r.wordCount)), sep].join('\n')
+    process.stdout.write(table + '\n')
     const count = cleaned.length
     const avgWords = count ? Math.round(cleaned.reduce((s, c) => s + c.wordCount, 0) / count) : 0
     const topTitles = cleaned.slice(0, 3).map(c => c.title)
